@@ -28,7 +28,7 @@ login_button.click()
 time.sleep(3)
 
 # Excel 파일 로드
-workbook = load_workbook('파일이름.xlsx') #파일이름 구역
+workbook = load_workbook('파일이름.xlsx') #파일이름
 sheet = workbook.active
 
 # 각 셀을 순회하며 계정 검색 및 프로필 비활성화 여부 확인
@@ -57,8 +57,10 @@ for row in sheet.iter_rows(min_row=5, values_only=True):  # B5 셀부터 시작
         is_exist = False
 
     if search_url == f'https://www.instagram.com/None/':
+        print('instagram Crowling made by Jordy2435')
+        driver.quit()
         exit()
-
+        
     if is_active:
         if is_exist:
             print(f'계정 {account}은(는) 계정이 확인되지 않습니다.')
@@ -67,7 +69,6 @@ for row in sheet.iter_rows(min_row=5, values_only=True):  # B5 셀부터 시작
 
     else:
         print(f'계정 {account}은(는) 비공개 상태입니다.')
-
 
 # 웹 드라이버 종료
 driver.quit()
