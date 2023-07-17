@@ -14,10 +14,10 @@ driver.get('https://www.instagram.com/accounts/login/')
 # 로그인 폼 입력
 wait = WebDriverWait(driver, 10)  # 최대 10초까지 대기
 username_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#loginForm input[name="username"]')))
-username_input.send_keys('인스타 아이디')
+username_input.send_keys('인스타그램 아이디')
 
 password_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#loginForm input[name="password"]')))
-password_input.send_keys('비밀번호')
+password_input.send_keys('인스타그램 비밀번호')
 
 time.sleep(2)
 
