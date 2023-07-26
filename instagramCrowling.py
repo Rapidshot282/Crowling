@@ -90,6 +90,7 @@ not_found_count = len(not_found_accounts)
 print(f'활성 계정 수: {active_count}')
 print(f'비활성 계정 수: {inactive_count}')
 print(f'확인되지 않은 계정 수: {not_found_count}')
+<<<<<<< HEAD
 print("---------------------------------------------------")
 print('활성 계정:', ', '.join(active_accounts))
 print('비활성 계정:', ', '.join(inactive_accounts))
@@ -97,6 +98,9 @@ print('확인되지 않은 계정:', ', '.join(not_found_accounts))
 
 print('instagram Crowling made by Jordy2435')
 
+=======
+print('instagram Crowling made by Jordy2435')
+>>>>>>> 3ff7ec53817fa0acf4b995a70605c6e1c9d99a99
 
 # 웹 드라이버 종료
 driver.quit()
