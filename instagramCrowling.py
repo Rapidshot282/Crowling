@@ -17,7 +17,7 @@ username_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#l
 username_input.send_keys('인스타그램 아이디')
 
 password_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#loginForm input[name="password"]')))
-password_input.send_keys('인스타그램 비밀번호')
+password_input.send_keys('비밀번호')
 
 time.sleep(2)
 
@@ -27,8 +27,13 @@ login_button.click()
 
 time.sleep(3)
 
+# 각 조건에 대한 카운터 변수 초기화
+active_accounts = []
+inactive_accounts = []
+not_found_accounts = []
+
 # Excel 파일 로드
-workbook = load_workbook('(파일이름).xlsx') #파일이름
+workbook = load_workbook('드림서포터신청_20230721.xlsx') #파일이름
 sheet = workbook.active
 
 # 각 셀을 순회하며 계정 검색 및 프로필 비활성화 여부 확인
@@ -53,10 +58,16 @@ for row in sheet.iter_rows(min_row=2, values_only=True):  # B5 셀부터 시작
     if len(private_indicator) > 0 and private_indicator[0].accessible_name == '비공개 계정입니다':
         is_active = False
 
-    if len(exist_indicator) > 0 and exist_indicator[24].text == '죄송합니다. 페이지를 사용할 수 없습니다.':
+    if len(exist_indicator) > 24 and exist_indicator[24].text == '죄송합니다. 페이지를 사용할 수 없습니다.':
         is_exist = False
 
     if search_url == f'https://www.instagram.com/None/':
+        active_count = len(active_accounts)
+        inactive_count = len(inactive_accounts)
+        not_found_count = len(not_found_accounts)
+        print(f'활성 계정 수: {active_count}')
+        print(f'비활성 계정 수: {inactive_count}')
+        print(f'확인되지 않은 계정 수: {not_found_count}')
         print('instagram Crowling made by Jordy2435')
         driver.quit()
         exit()
@@ -64,10 +75,28 @@ for row in sheet.iter_rows(min_row=2, values_only=True):  # B5 셀부터 시작
     if is_active:
         if is_exist:
             print(f'계정 {account}은(는) 공개 상태입니다.')
+            active_accounts.append(account)
         else:
             print(f'계정 {account}은(는) 계정이 확인되지 않습니다.')
+            not_found_accounts.append(account)
     else:
         print(f'계정 {account}은(는) 비공개 상태입니다.')
+        inactive_accounts.append(account)
+
+active_count = len(active_accounts)
+inactive_count = len(inactive_accounts)
+not_found_count = len(not_found_accounts)
+
+print(f'활성 계정 수: {active_count}')
+print(f'비활성 계정 수: {inactive_count}')
+print(f'확인되지 않은 계정 수: {not_found_count}')
+print("---------------------------------------------------")
+print('활성 계정:', ', '.join(active_accounts))
+print('비활성 계정:', ', '.join(inactive_accounts))
+print('확인되지 않은 계정:', ', '.join(not_found_accounts))
+
+print('instagram Crowling made by Jordy2435')
+
 
 # 웹 드라이버 종료
 driver.quit()
